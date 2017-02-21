@@ -14,5 +14,4 @@ Item.all.each do |item|
   counter += 1
 end
 
-Cart.create(:user_id => 1)
-User.create(:email => "scott@gmail.com", :encrypted_password => "password")
+User.create(:email => "scott@gmail.com", :password => "password")
