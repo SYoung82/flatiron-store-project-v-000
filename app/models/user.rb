@@ -8,6 +8,13 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
 
   has_many :carts
+  belongs_to :current_cart, class_name: 'Cart'
+
+  def create_current_cart
+    new_cart = self.carts.build
+    self.current_cart_id = new_cart.id
+    self.save
+  end
 
   def current_cart
     self.carts.find_by_id(self.current_cart_id)

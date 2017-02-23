@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      @user.create_current_cart
       session[:user_id] = @user.id
       redirect_to store_url
     else
