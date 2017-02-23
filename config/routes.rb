@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :items, only: [:show, :index]
   resources :categories, only: [:show, :index]
-  resources :users, only: [:show, :new, :create]
+  #resources :users, only: [:show, :new, :create]
   resources :carts
   resources :line_items, only: [:create]
   resources :orders, only: [:show]
@@ -13,4 +13,5 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  get 'users/sign_out', to: 'store#index'
 end
