@@ -5,10 +5,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(name: params[:user][:name])
-    if @user && @user.authenticate(params[:user][:password])
+    @user = User.find_by(email: params[:user][:email])
+    if @user && @user.valid_password?(params[:user][:password])
       session[:user_id] = @user.id
-      redirect_to user_path(@user)
+      redirect_to store_url
     else
       redirect_to signin_path, notice: "Invalid signin information."
     end
@@ -16,6 +16,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session.destroy
-    redirect_to :root
+    redirect_to store_url
   end
 end

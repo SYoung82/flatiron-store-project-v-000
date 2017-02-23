@@ -1,4 +1,10 @@
 <nav class="">
+    <% if logged_in? %>
+      <h3>Welcome to the Flatiron Store, <%= "#{current_user.email}" %></h3>
+    <% else %>
+      <h3>Welcome to the Flatiron Store</h3>
+    <% end %>
+
     <ul>
         <li> <%= link_to "Store Home", store_path %> </li>
         <% if logged_in? %>
