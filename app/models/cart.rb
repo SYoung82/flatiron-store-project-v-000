@@ -4,7 +4,11 @@ class Cart < ActiveRecord::Base
   belongs_to :user
 
   def total
-    self.items.sum(:price)
+    total = 0
+    self.line_items.each do |line_item|
+      total += line_item.item.price * line_item.quantity
+    end
+    total
   end
 
   def add_item(item_id)
@@ -18,11 +22,14 @@ class Cart < ActiveRecord::Base
   end
 
   def checkout
-    self.status = "Submitted"
     self.line_items.each do |line_item|
       line_item.item.inventory -= line_item.quantity
       line_item.item.save
     end
+
+    self.user.remove_current_cart
+
+    self.status = "Submitted"
     self.save
   end
 
