@@ -8,7 +8,6 @@ class CartsController < ApplicationController
   def checkout
     @cart = current_user.carts.find(params[:id])
     @cart.checkout
-    binding.pry
     redirect_to cart_path(@cart)
   end
 end
